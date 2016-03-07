@@ -33,7 +33,7 @@ var mainState = (function (_super) {
         var background1 = this.add.sprite(0, 0, 'background1');
         var background2 = this.add.sprite(0, 0, 'background2');
         //bla, bla
-        background = this.add.sprite(0, 0, 'background');
+        //background = this.add.sprite(0, 0, 'background');
         this.ufo = this.add.sprite(this.world.centerX, this.world.centerY, 'ufo');
         this.ufo.anchor.setTo(0.5, 0.5);
         this.physics.enable(this.ufo);
