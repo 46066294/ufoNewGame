@@ -72,6 +72,8 @@ var mainState = (function (_super) {
             this.ufo.body.acceleration.y = 0;
             this.ufo.body.acceleration.x = 0;
         }
+        this.ufo.body.angularAcceleration = this.ufo.body.acceleration.y;
+        this.pickup.angle += 1;
     };
     return mainState;
 })(Phaser.State);

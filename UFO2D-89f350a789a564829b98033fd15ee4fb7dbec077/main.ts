@@ -36,7 +36,6 @@ class mainState extends Phaser.State {
         this.createWalls();
 
 
-
         this.ufo = this.add.sprite(this.world.centerX, this.world.centerY, 'ufo');
         this.ufo.anchor.setTo(0.5, 0.5);
         this.physics.enable(this.ufo, Phaser.Physics.ARCADE);
@@ -90,6 +89,8 @@ class mainState extends Phaser.State {
 
         }
 
+        this.ufo.body.angularAcceleration = this.ufo.body.acceleration.y;
+        this.pickup.angle += 1;
     }
 
 }
