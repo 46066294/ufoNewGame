@@ -1,28 +1,30 @@
 /// <reference path="phaser/phaser.d.ts"/>
+import Point = Phaser.Point;
 
 class mainState extends Phaser.State {
+
     game: Phaser.Game;
+
+    private walls:Phaser.TilemapLayer;
+    private map:Phaser.Tilemap;
     private ufo:Phaser.Sprite;
     private cursor:Phaser.CursorKeys;
-    private FRICCION = 30;
+
     private MAX_SPEED = 250;
     private ACCELERATION = 750; // pixels/second/second
+    private DRAG:number = 100;
+
+    private pickup:Phaser.Sprite;
+
 
     preload():void {
         super.preload();
 
         this.load.image('ufo', 'assets/UFO_low.png');
         this.load.image('pickup', 'assets/Pickup_low.png');
-        //this.load.image('background', 'assets/Background_low.png');
-        this.load.image('background1', 'assets/Background_low-0-0.png');
-        this.load.image('background2', 'assets/Background_low-0-1.png');
-        this.load.image('background3', 'assets/Background_low-0-2.png');
-        this.load.image('background4', 'assets/Background_low-1-0.png');
-        this.load.image('background5', 'assets/Background_low-1-1.png');
-        this.load.image('background6', 'assets/Background_low-1-2.png');
-        this.load.image('background7', 'assets/Background_low-2-0.png');
-        this.load.image('background8', 'assets/Background_low-2-1.png');
-        this.load.image('background9', 'assets/Background_low-2-2.png');
+        this.load.image('pickup', 'assets/Pickup_low.png');
+        this.game.load.tilemap('tilemap', 'assets/map.json', null, Phaser.Tilemap.TILED_JSON);
+        this.game.load.image('tiles', 'assets/Background_low.png');
 
         this.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -31,25 +33,44 @@ class mainState extends Phaser.State {
     create():void {
         super.create();
 
-        var background1 = this.add.sprite(0, 0, 'background1');
-        var background2 = this.add.sprite(0, 0, 'background2');
-        //bla, bla
+        this.createWalls();
 
 
-        //background = this.add.sprite(0, 0, 'background');
 
         this.ufo = this.add.sprite(this.world.centerX, this.world.centerY, 'ufo');
         this.ufo.anchor.setTo(0.5, 0.5);
-        this.physics.enable(this.ufo);
-        this.ufo.body.maxVelocity.setTo(this.MAX_SPEED, this.MAX_SPEED); // x, y
-        this.ufo.body.drag.setTo(this.FRICCION, this.FRICCION);
-        this.ufo.body.collideWorldBounds = true;
+        this.physics.enable(this.ufo, Phaser.Physics.ARCADE);
         this.cursor = this.input.keyboard.createCursorKeys();
+        this.ufo.body.maxVelocity.setTo(this.MAX_SPEED, this.MAX_SPEED); // x, y
+        this.ufo.body.collideWorldBounds = true;
+        this.ufo.body.bounce.setTo(0.5);
+        this.ufo.body.drag.setTo(this.DRAG, this.DRAG); // x, y
+
+        //pickups
+        this.pickup = this.add.sprite(this.world.centerX, this.world.centerY, 'pickup');
+        this.pickup.anchor.setTo(0.5, 0.5);
+
+        /////////
+
     }
+
+//GITHUB PROFE: https://github.com/lawer/UFO2D/blob/e4dd238c1cd9225b35c6bbb72917b9201b679b15/main.ts
+    private createWalls() {
+        //this.map = this.game.add.tilemap('map.json');
+        this.map = this.game.add.tilemap('tilemap');
+        this.map.addTilesetImage('Background_low', 'tiles');
+
+        var background = this.map.createLayer('background');//Tile Layer 2
+        this.walls = this.map.createLayer('walls');//Tile Layer 1
+
+        this.map.setCollisionBetween(1, 100, true, 'walls');
+
+    };
 
     update():void {
         super.update();
-        this.game.debug.bodyInfo(this.ufo, 0, 0);
+        //this.game.debug.bodyInfo(this.ufo, 0, 0);
+        this.physics.arcade.collide(this.ufo, this.walls);
 
         if(this.cursor.left.isDown){
             //this.ufo.x -= 5;
@@ -70,6 +91,7 @@ class mainState extends Phaser.State {
         }
 
     }
+
 }
 
 class SimpleGame {

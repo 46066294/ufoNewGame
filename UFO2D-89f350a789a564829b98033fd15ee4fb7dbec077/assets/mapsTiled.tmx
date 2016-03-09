@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="60" tileheight="60">
+ <tileset firstgid="1" name="Background_low" tilewidth="60" tileheight="60">
+  <image source="Background_low.png" width="603" height="600"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="10" height="10">
+  <data encoding="base64" compression="zlib">
+   eJyN0LsORGAUReETd/+0tLS0tLSmpRWMy/u/g5WM3t7J161qOzPz4CNAiAgxEqRw+Nj7MuRCV6AUugq10DVoha5DL3QDvkI3YhK62f4fLlix4YcdB05cT3MDmH4GeQ==
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="10" height="10">
+  <data encoding="base64" compression="zlib">
+   eJyVyslKgmEAQNH/ASyHQHOCckhwSIXSUnAWMidwKH3/F+ksv6VdOLsbRbcX44574iRIkuIh+NJkeCRLjjwFisH3xDMlylSo8kIt+Oo0aNLilTYdusH3xjs9+nzwyYBh8I0YM2HKjDkLlsH3xYpv1mzYsmMffAeOnDjzwy8XrtH/+gPl+Qyh
+  </data>
+ </layer>
+</map>
